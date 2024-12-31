@@ -7,12 +7,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/mr_proper-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/mr_proper-{{ version }}.tar.gz
   sha256: 03b517b19e617537f711ce418b125e5f2efd82ec881539cdee83195c78c14a02
 
 build:
   noarch: python
-  number: 0
+  number: 1
   entry_points:
     - mr_proper = mr_proper.main:main
   script: {{ PYTHON }} -m pip install . -vv
@@ -20,10 +20,10 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - click >=7.1.2
-    - python >=3.7
+    - python >={{ python_min }}
     - setuptools
     - stdlib-list >=0.5.0
     - typing-extensions >=3.7.4.3
@@ -37,6 +37,7 @@ test:
     - mr_proper --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/best-doctor/mr_proper
